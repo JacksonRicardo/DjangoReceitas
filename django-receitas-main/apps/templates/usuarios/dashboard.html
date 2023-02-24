@@ -1,0 +1,42 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block content %}
+
+
+    <div class="contact-area section-padding-0-80">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading">
+                        <h3>Olá {{ user.username }}</h3>
+                    </div>
+                </div>
+
+                {% if receitas %}
+                    {% for receita in receitas %}
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="single-best-receipe-area mb-30">
+                                {% if receita.foto == '' %}
+                                    <img src="{% static 'img/bg-img/foto_receita.png' %}" alt="">
+                                {% else %}
+                                    <img src="{{ receita.foto.url }}" alt="">
+                                {% endif %}
+                                <div class="receipe-content">
+                                    <a href="{% url 'receitas.show' receita.id %}">
+                                        <h5>{{ receita }}</h5>
+                                    </a>
+                                    <a href="{% url 'receitas.edit' receita.id %}" type="button" class="btn btn-info mr-2"><i class="fas fa-edit"></i></a>
+                                    <a href="{% url 'receitas.destroy' receita.id %}" type="button" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>Não foram encontradas receitas.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
